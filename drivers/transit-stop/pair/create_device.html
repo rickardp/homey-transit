@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create</title>
+    </head>
+    <body>
+        <div>Creating the device</div>
+    </body>
+    <script>
+        $(function() {
+            Homey.showLoadingOverlay();
+            Homey.emit( 'create_device', '', function(err, dev) {
+			    Homey.createDevice(dev, function(err, result) {
+                    if( err ) return Homey.alert( err );
+                    Homey.done();
+                    });
+            })
+        });
+    </script>
+</html>

@@ -1,0 +1,262 @@
+{
+  "$schema": "https://raw.githubusercontent.com/athombv/node-homey-lib/master/assets/app/schema.json",
+  "id": "com.evolviq.transit",
+  "version": "0.9.0",
+  "compatibility": ">=2.4.0",
+  "sdk": 2,
+  "name": {
+    "en": "Transit"
+  },
+  "description": {
+    "en": "Real time traffic data for transit and commuter parking"
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "rickardly"
+      }
+    }
+  },
+  "category": [
+    "internet"
+  ],
+  "brandColor": "#009ddb",
+  "permissions": [ "homey:manager:api" ],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Rickard",
+    "email": "athom@evolviq.com"
+  },
+  "drivers": [
+    {
+      "id": "transit-stop",
+      "name": {
+        "en": "Transit stop"
+      },
+      "class": "other",
+      "capabilities": [
+        "current_time_until_departure",
+        "current_delay",
+        "current_line",
+        "current_destination",
+        "current_track",
+        "next_time_until_departure",
+        "next_delay",
+        "next_line",
+        "next_destination",
+        "next_track"
+      ],
+      "images": {
+        "large": "/drivers/transit-stop/assets/images/large.png",
+        "small": "/drivers/transit-stop/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "select_provider",
+          "navigation": {
+            "next": "select_stop"
+          }
+        },
+        {
+          "id": "select_stop",
+          "navigation": {
+            "next": "select_track"
+          }
+        },
+        {
+          "id": "select_track",
+          "navigation": {
+            "next": "select_lines"
+          }
+        },
+        {
+          "id": "select_lines",
+          "navigation": {
+            "next": "create_device"
+          }
+        },
+        {
+          "id": "create_device"
+        }
+      ],
+      "settings": [
+        {
+          "id": "id",
+          "type": "text",
+          "label": {"en": "Stop ID"}
+        },
+        {
+          "id": "track",
+          "type": "text",
+          "label": {"en": "Track ID/number (empty for all)"}
+        },
+        {
+          "id": "lines",
+          "type": "text",
+          "label": {"en": "Comma-separated list of lines (empty for all)"}
+        }
+      ]
+    },
+    {
+      "id": "commuter-parking",
+      "name": {
+        "en": "Commuter Parking"
+      },
+      "class": "other",
+      "capabilities": [
+      ],
+      "images": {
+        "large": "/drivers/commuter-parking/assets/images/large.png",
+        "small": "/drivers/commuter-parking/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "select_stop",
+          "navigation": {
+            "next": "add_stop"
+          }
+        },
+        {
+          "id": "add_stop",
+          "template": "add_devices"
+        }
+      ]
+    }
+  ],
+  "capabilities": {
+    "current_time_until_departure" : {
+      "type": "number",
+      "chartType": "spline",
+      "decimals": 1,
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/icon.svg",
+      "uiComponent": "sensor",
+      "insights": true,
+      "title": {
+        "en": "Minutes until departure"
+      },
+      "desc": {
+        "en": "Volatile Organic Compound (ppb)"
+      },
+      "$flow": {
+        "triggers": [
+          {
+            "id": "current_time_until_departure_changed",
+            "title": {
+              "en": "Time until departure changed"
+            },
+            "tokens": [
+              {
+                "name": "$id",
+                "title": "$title",
+                "type": "$type",
+                "example": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "current_delay" : {
+      "type": "number",
+      "chartType": "spline",
+      "decimals": 1,
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/icon.svg",
+      "uiComponent": "sensor",
+      "insights": true,
+      "title": {
+        "en": "Minutes delay"
+      }
+    },
+    "current_line" : {
+      "type": "string",
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/icon.svg",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Line"
+      }
+    },
+    "current_destination" : {
+      "type": "string",
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/icon.svg",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Destination"
+      }
+    },
+    "current_track" : {
+      "type": "string",
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/icon.svg",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Track"
+      }
+    },
+    "next_time_until_departure" : {
+      "type": "number",
+      "chartType": "spline",
+      "decimals": 1,
+      "insights": true,
+      "icon": "/assets/icon.svg",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "(Next) Minutes until departure"
+      }
+    },
+    "next_delay" : {
+      "type": "number",
+      "chartType": "spline",
+      "decimals": 1,
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/icon.svg",
+      "uiComponent": "sensor",
+      "insights": true,
+      "title": {
+        "en": "(Next) Minutes delay"
+      }
+    },
+    "next_line" : {
+      "type": "string",
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/icon.svg",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "(Next) Line"
+      }
+    },
+    "next_destination" : {
+      "type": "string",
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/icon.svg",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "(Next) Destination"
+      }
+    },
+    "next_track" : {
+      "type": "string",
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/icon.svg",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "(Next) Track"
+      }
+    }
+  } 
+}
