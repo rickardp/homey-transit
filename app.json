@@ -198,6 +198,8 @@
       "type": "string",
       "getable": true,
       "setable": false,
+      "getable": true,
+      "setable": false,
       "icon": "/assets/icon.svg",
       "uiComponent": "sensor",
       "title": {
@@ -209,6 +211,8 @@
       "chartType": "spline",
       "decimals": 1,
       "insights": true,
+      "getable": true,
+      "setable": false,
       "icon": "/assets/icon.svg",
       "uiComponent": "sensor",
       "title": {

@@ -93,6 +93,7 @@ class TransitStopDriver extends Homey.Driver {
 			callback( null, {
 				name: stops_data[current_stop].title,
 				data: {
+					id: current_provider + "-" + Date.now(),
 					provider: current_provider
 				},
 				settings: {
